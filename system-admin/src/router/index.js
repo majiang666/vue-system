@@ -1,4 +1,3 @@
-/* jshint esversion: 6 */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import login from '@/components/login';
@@ -9,6 +8,7 @@ import img from '@/components/module/img/img';
 import brand from '@/components/module/product/brand';
 import classify from '@/components/module/product/classify';
 import product from '@/components/module/product/product';
+import listInfo from '@/components/module/list/list-info';
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -37,6 +37,10 @@ export default new VueRouter({
                 component:list
                },
                {
+                path:"/mean/list/:info",
+                    component:listInfo
+                },
+               {
                 path:"/mean/img",
                 component:img
                },
@@ -55,4 +59,4 @@ export default new VueRouter({
             ]
         }
     ]
-});
+})

@@ -18,7 +18,10 @@
             <td>{{item.name}}</td>
             <td>{{item.age}}</td>
             <td>{{item.work}}</td>
-            <td><a href="javascript:;" @click="delData(index)">删除</a></td>
+            <td>
+              <a href="javascript:;" @click="delData(index)">删除</a>
+              <a href="javascript:;" @click="lookInfo(item.id)">查看详情</a>
+              </td>
           </tr>
         </tbody>
       </table>
@@ -133,6 +136,10 @@ export default {
     delData(index){
       console.log(index);
       this.dataList.splice(index,1);
+    },
+    lookInfo(id){
+      console.log(id);
+      this.$router.push({path:'/mean/list/info',query:{id:id}});
     }
   },
   components:{
@@ -165,6 +172,9 @@ export default {
  .list-mean table th{
    background: #f5f5f5;
  }
+  .list-mean table td a{
+    margin:0 5px;
+  }
  button.add{
    width:80px;
    height:30px;
