@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import login from '@/components/login';
+import other from '@/components/other';
 import mean from '@/components/mean';
 import index from '@/components/module/index';
 import list from '@/components/module/list/list';
@@ -20,6 +21,10 @@ export default new VueRouter({
 			redirect:"/login"
         },
         {
+			path:"/other",
+			component:other
+        },
+        {
 			path:"/login",
 			component:login
         },
@@ -30,31 +35,52 @@ export default new VueRouter({
             children:[
                {
                 path:"/mean/index",
-                component:index
+                component:index,
+                meta: { 
+                  requiresAuth: true 
+                }
                },
                {
                 path:"/mean/list",
-                component:list
+                component:list,
+                meta: { 
+                  requiresAuth: true 
+                }
                },
                {
                 path:"/mean/list/:info",
-                    component:listInfo
+                    component:listInfo,
+                    meta: { 
+                      requiresAuth: true 
+                    }
                 },
                {
                 path:"/mean/img",
-                component:img
+                component:img,
+                meta: { 
+                  requiresAuth: true 
+                }
                },
                {
                 path:"/mean/product/brand",
-                component:brand
+                component:brand,
+                meta: { 
+                  requiresAuth: true 
+                }
                },
                {
                 path:"/mean/product/classify",
-                component:classify
+                component:classify,
+                meta: { 
+                  requiresAuth: true 
+                }
                },
                {
                 path:"/mean/product/product",
-                component:product
+                component:product,
+                meta: { 
+                  requiresAuth: true 
+                }
                }
             ]
         }

@@ -7,7 +7,7 @@
     </div>
     <div class="top-right">
       <span class="user">欢迎您，超级管理员，<em @click="showP">{{user}}</em></span>
-      <span>退出</span>
+      <span @click="loginOut">退出</span>
     </div>
   </div>
   <transition name="fade">
@@ -39,6 +39,10 @@ export default {
     
   },
   methods:{
+    loginOut(){
+      sessionStorage.removeItem("accessToken");
+      this.$router.push({path:'/'});
+    },
      showP(){
        this.showPopup=true
      },

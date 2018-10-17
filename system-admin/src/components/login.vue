@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <button @click="showData">点击传递</button>
     <div style="color:#fff;" v-if="showLoading">loading...</div>
     <div class="login-mean">
       <h1>{{title}}</h1>
@@ -32,6 +33,14 @@ export default {
     tips
   },
   methods:{
+    showData:function(){
+      console.log(this.bus);
+      // this.$nextTick( () => {
+      this.bus.$emit("test","反反复复反反复复反反复复");
+      // });
+      this.$router.push({ path: './other' });
+      
+    },
     jumpIndex:function(){
       if(this.userName == ""){
          this.tipsTxt= '请输入用户名';
@@ -54,6 +63,7 @@ export default {
       this.params.passWord = this.passWord;
       console.log(this.params);
       this.$router.push('/mean');
+      sessionStorage.setItem("accessToken","1");
     }
   }
 };
