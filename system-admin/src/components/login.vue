@@ -35,11 +35,10 @@ export default {
   methods:{
     showData:function(){
       console.log(this.bus);
-      // this.$nextTick( () => {
-      this.bus.$emit("test","反反复复反反复复反反复复");
-      // });
       this.$router.push({ path: './other' });
-      
+      this.$nextTick( () => {
+        this.bus.$emit("test","反反复复反反复复反反复复");
+      });
     },
     jumpIndex:function(){
       if(this.userName == ""){
