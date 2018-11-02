@@ -1,0 +1,8 @@
+{
+    "returnCode":"0",
+    "returnMessage":"登录成功",
+    "bean":{
+        "userName":"admin",
+        "password":"admin888"
+    }
+}

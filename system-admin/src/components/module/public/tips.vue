@@ -1,22 +1,26 @@
 <template>
 <div class="tips">
-  {{title}}
+  <div class="am-alert am-alert-warning">
+    <button type="button" class="am-close" @click="closeWin()">&times;</button>
+    <p>{{title}}</p>
+  </div>
 </div>
 </template>
 
 <script>
-
 export default {
-  name: "tips",
-  props:["title"],
-  data:function(){ 
-    return {
+    name: "tips",
+    props:["title"],//父级传递过来提示内容
+    data:function(){ 
+      return {
       
+      }
+    },
+    methods:{
+      closeWin:function(){
+        this.$emit("tipsFlag",false);//关闭提示
+      }
     }
-  },
-  methods:{
-   
-  }
 };
 </script>
 
@@ -24,18 +28,11 @@ export default {
 <style scoped>
   .tips{
     position: fixed;
-    height:35px;
-    line-height: 35px;
-    left:0;
+    top:10px;
     right:0;
-    bottom:10%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index:9999;
-    text-align: center;
-    color:#fff;
-    width:120px;
-    margin:0 auto;
-    border-radius: 20px;
+    min-width:200px;
   }
-  
+  .tips p{
+    color:#fff;
+  }
 </style>

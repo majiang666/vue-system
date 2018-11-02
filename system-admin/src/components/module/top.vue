@@ -1,22 +1,58 @@
 <template>
 <div>
-  <div class="top">
-    <div class="top-left">
-      <img src="../../assets/img/logo.png" alt="" width="40">
-      <h1>{{msg}}</h1>
-    </div>
-    <div class="top-right">
-      <span class="user">欢迎您，超级管理员，<em @click="showP">{{user}}</em></span>
-      <span @click="loginOut">退出</span>
-    </div>
-  </div>
-  <transition name="fade">
-  <popup v-show="showPopup" @showVa="showV" :title="titles">
-    <div class="userInfo">
-      管理员信息
-    </div>
-  </popup>
-  </transition>
+<header class="am-topbar admin-header">
+	<div class="am-topbar-brand"><img src="/assets/img/logo.png"></div>
+	<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+		<ul class="am-nav am-nav-pills am-topbar-nav admin-header-list">
+			<li class="am-dropdown tognzhi" data-am-dropdown>
+				<button class="am-btn am-btn-primary am-dropdown-toggle am-btn-xs am-radius am-icon-bell-o" data-am-dropdown-toggle> 
+					消息管理<span class="am-badge am-badge-danger am-round">6</span>
+				</button>
+				<ul class="am-dropdown-content">
+					<li class="am-dropdown-header">所有消息都在这里</li>
+					<li><a href="#">未激活会员 <span class="am-badge am-badge-danger am-round">556</span></a></li>
+					<li><a href="#">未激活代理 <span class="am-badge am-badge-danger am-round">69</span></a></li>
+					<li><a href="#">未处理汇款</a></li>
+					<li><a href="#">未发放提现</a></li>
+					<li><a href="#">未发货订单</a></li>
+					<li><a href="#">低库存产品</a></li>
+					<li><a href="#">信息反馈</a></li>
+				</ul>
+			</li>
+			<li class="kuanjie">
+				<a href="#">会员管理</a>          
+				<a href="#">奖金管理</a> 
+				<a href="#">订单管理</a>   
+				<a href="#">产品管理</a> 
+				<a href="#">个人中心</a> 
+				<a href="#">系统设置</a>
+			</li>
+			<li class="soso">
+				<p>   
+					<select data-am-selected="{btnWidth: 70, btnSize: 'sm', btnStyle: 'default'}">
+						<option value="b">全部</option>
+						<option value="o">产品</option>
+						<option value="o">会员</option>
+					</select>
+				</p>
+				<p class="ycfg">
+					<input type="text" class="am-form-field am-input-sm" placeholder="圆角表单域" />
+				</p>
+				<p>
+					<button class="am-btn am-btn-xs am-btn-default am-xiao">
+						<i class="am-icon-search"></i>
+					</button>
+				</p>
+			</li>
+			<li class="am-hide-sm-only" style="float: right;">
+				<a href="javascript:;" id="admin-fullscreen">
+					<span class="am-icon-arrows-alt"></span> 
+					<span class="admin-fullText">开启全屏</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</header>
 </div>
 </template>
 
@@ -54,8 +90,15 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  em{
+<style>
+/* header{
+    background: #42a6ef;
+    position: fixed;
+    top:0;
+    left:0;
+    width:calc(100%);
+} */
+  /* em{
     font-style: normal;
     color:#f60;
   }
@@ -101,5 +144,5 @@ export default {
   }
   .userInfo{
     padding:10px;
-  }
+  } */
 </style>

@@ -1,14 +1,57 @@
 <template>
-<div class="left">
-  <ul>
-    <router-link to="/mean/index" tag="li">首页</router-link>
-    <li v-for="nav in navList" :key="nav.id"  @click="showNav(nav.id)">{{nav.navOne}}
-      <i class="iconfont icon-iconfontjiantou"></i>
-      <ul class="nav-child" v-show="showTag == nav.id">
-        <li v-for="item in nav.navTwo" :key="item.id" @click.stop="jumpModule(item.url)">{{item.title}}</li>
+<div class="nav-navicon admin-main admin-sidebar">
+    <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员：admin</div>
+    <div class="sideMenu">
+		<div v-for="item in navList" :key="item.id">
+			<h3 @click="leftMenu()" :class="item.icon"><em></em> <a href="javascript:;">{{item.name}}</a></h3>
+			<ul>
+				<!-- <li><router-link to="/mean/list">商品列表</router-link></li> -->
+				<!-- <li class="func" dataType='html' dataLink='msn.htm' iconImg='images/msn.gif'>添加新商品</li> -->
+				<li @click="curNav(itemChild.name,itemChild.path,index)" v-for="(itemChild,index) in item.childrenList" :key="itemChild.id"><router-link :to="itemChild.path">{{itemChild.name}}</router-link></li>
+				<!-- <li>用户评论</li>
+				<li>商品回收站</li>
+				<li>库存管理 </li> -->
+			</ul>
+		</div>
+      <!-- <h3 class="am-icon-cart-plus"><em></em> <a href="#">订单管理</a></h3>
+      <ul>
+        <li>订单列表</li>
+        <li>合并订单</li>
+        <li>订单打印</li>
+        <li>添加订单</li>
+        <li>发货单列表</li>
+        <li>换货单列表</li>
       </ul>
-    </li>
-  </ul>
+      <h3 class="am-icon-users"><em></em> <a href="#">会员管理</a></h3>
+      <ul>
+        <li>会员列表 </li>
+        <li>未激活会员</li>
+        <li>团队系谱图</li>
+        <li>会员推荐图</li>
+        <li>推荐列表</li>
+      </ul>
+      <h3 class="am-icon-volume-up"><em></em> <a href="#">信息通知</a></h3>
+      <ul>
+        <li>站内消息 /留言 </li>
+        <li>短信</li>
+        <li>邮件</li>
+        <li>微信</li>
+        <li>客服</li>
+      </ul>
+      <h3 class="am-icon-gears"><em></em> <a href="#">系统设置</a></h3>
+      <ul>
+        <li>数据备份</li>
+        <li>邮件/短信管理</li>
+        <li>上传/下载</li>
+        <li>权限</li>
+        <li>网站设置</li>
+        <li>第三方支付</li>
+        <li>提现 /转账 出入账汇率</li>
+        <li>平台设置</li>
+        <li>声音文件</li>
+      </ul> -->
+    </div>
+    <!-- sideMenu End --> 
 </div>
 </template>
 
@@ -17,195 +60,49 @@ export default {
   name: "left",
   data:function(){
     return {
-      showTag: "",
-      navList:[
-      {
-        navOne:"资讯管理",
-        id:1,
-        navTwo:[
-          {
-            title:"资讯管理",
-            id:1,
-            url:"/mean/list"
-          }
-        ]
-      },
-      {
-        navOne:"图片管理",
-        id:2,
-        navTwo:[
-          {
-            title:"图片管理",
-            id:1,
-            url:"/mean/img"
-          }
-        ]
-      },
-      {
-        navOne:"产品管理",
-        id:3,
-        navTwo:[
-          {
-            title:"品牌管理",
-            id:1,
-            url:"/mean/product/brand"
-          },
-          {
-            title:"分类管理",
-            id:2,
-            url:"/mean/product/classify"
-          },
-          {
-            title:"产品管理",
-            id:3,
-            url:"/mean/product/product"
-          }
-        ]
-      },
-      {
-        navOne:"评论管理",
-        id:4,
-        navTwo:[
-          {
-            title:"评论列表",
-            id:1
-          },
-          {
-            title:"意见反馈",
-            id:2
-          }
-        ]
-      },
-      {
-        navOne:"会员管理",
-        id:5,
-        navTwo:[
-          {
-            title:"会员列表",
-            id:1
-          },
-          {
-            title:"删除的会员",
-            id:2
-          },
-          {
-            title:"等级管理",
-            id:3
-          },
-          {
-            title:"积分管理",
-            id:4
-          },
-          {
-            title:"浏览记录",
-            id:5
-          },
-          {
-            title:"下载记录",
-            id:6
-          },
-          {
-            title:"分享记录",
-            id:7
-          }
-        ]
-      },
-      {
-        navOne:"管理员管理",
-        id:6,
-        navTwo:[
-          {
-            title:"角色管理",
-            id:1
-          },
-          {
-            title:"权限管理",
-            id:2
-          },
-          {
-            title:"管理员列表",
-            id:3
-          }
-        ]
-      },
-      {
-        navOne:"统计管理",
-        id:7,
-        navTwo:[
-          {
-            title:"折线图",
-            id:1
-          },
-          {
-            title:"时间轴折线图",
-            id:2
-          }
-        ]
-      },
-      {
-        navOne:"系统管理",
-        id:8,
-        navTwo:[
-          {
-            title:"系统设置",
-            id:1
-          },
-          {
-            title:"栏目管理",
-            id:2
-          },
-          {
-            title:"数据字典",
-            id:3
-          },
-          {
-            title:"屏蔽词",
-            id:4
-          },
-          {
-            title:"系统日志",
-            id:5
-          }
-        ]
-      }
-    ]
+		navList:[]
     }
   },
-   methods: {
-     showNav(tab) {
-      this.showTag = this.showTag == tab ? '' : tab; // 点击一下展开，再点击消失
-    },
-    jumpModule(url){
-      this.$router.push(url);
-    }
+  methods:{
+    leftMenu:function(){
+      this.$nextTick(function(){
+        $(".sideMenu").slide({
+          titCell:"h3", //鼠标触发对象
+          targetCell:"ul", //与titCell一一对应，第n个titCell控制第n个targetCell的显示隐藏
+          effect:"slideDown", //targetCell下拉效果
+          delayTime:500 , //效果时间
+          triggerTime:150, //鼠标延迟触发时间（默认150）
+          defaultPlay:true,//默认是否执行效果（默认true）
+          returnDefault:false, //鼠标从.sideMen移走后返回默认状态（默认false）
+          trigger:"click"
+        });
+      })
+	},
+	navdata:function(){
+		this.$ajax.get('http://localhost:8080/data/nav.json',{}).then((data) => {
+			this.navList = data.data.navList;
+		}).catch((error) => {
+			console.log(error);
+		})
+	},
+	curNav:function(name,path,index){
+		let namePath = {
+			"id":index,
+			"name":name,
+			"path":path
+		}
+		this.$emit("curTab",namePath);
+	}
+  },
+  mounted:function(){
+	this.navdata();
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .left{
-    width:200px;
-    position: fixed;
-    background: #f5f5f5;
-    top:60px;
-    left:0;
-    height:calc(100% - 60px);
-    z-index: 99;
-    overflow-y: auto;
-  }
-  .left ul > li{
-    padding:10px;
-    border-bottom:dotted 1px #dedede;
-    font-size:15px;
-    color:#999;
-  }
-  .left ul > li i{
-    margin-left:5px;
-  }
-  .left ul > li ul li{
-    border-bottom:0;
-    font-size:14px;
-    color:#333;
-  }
+	.sideMenu h3:before{
+		margin-right:5px;
+	}
 </style>

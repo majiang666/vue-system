@@ -1,125 +1,114 @@
 <template>
-  <div class="login">
-    <button @click="showData">点击传递</button>
-    <div style="color:#fff;" v-if="showLoading">loading...</div>
-    <div class="login-mean">
-      <h1>{{title}}</h1>
-      <ul>
-        <li><input type="text" placeholder="用户名" v-model="userName"></li>
-        <li><input type="password" placeholder="密码" v-model="passWord"></li>
-        <li><button @click="jumpIndex">登录</button></li>
-      </ul>
-    </div>
-    <tips :title="tipsTxt" v-if="tipsTag"></tips>
-  </div>
+	<div class="login">
+		<div class="header">
+			<div class="am-g">
+				<h1>后台管理系统</h1>
+				<p>Hello,world!<br/>基于amazeUI，练习后台管理系统</p>
+			</div>
+			<hr />
+		</div>
+		<div class="am-g">
+			<div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+				<h3>登录</h3>
+				<hr><br>
+				<form method="post" class="am-form">
+					<label for="email">用户名:</label>
+					<input type="email" placeholder="用户名" v-model="userName">
+					<br>
+					<label for="password">密码:</label>
+					<input type="password" placeholder="密码" @keyup.enter="jumpIndex" v-model="passWord">
+					<br>
+					<label for="remember-me">
+						<input id="remember-me" type="checkbox">
+						记住密码
+					</label>
+					<br />
+					<div class="am-cf">
+						<input type="button" @click="jumpIndex" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl">
+						<input type="button" name="" value="忘记密码 ^_^? " class="am-btn am-btn-default am-btn-sm am-fr">
+					</div>
+				</form>
+				<hr>
+				<p>© 2018 AllMobilize, Inc. Licensed under MIT license.</p>
+			</div>
+		</div>
+		<tips :title="titles" @tipsFlag="tFlag" v-if="tipFlag"></tips>
+	</div>
 </template>
 
 <script>
 import tips from '@/components/module/public/tips';
 export default {
-  name: "login",
-  data:function(){ 
-    return {
-      title:"登录",
-      userName:"",
-      passWord:"",
-      params:{},
-      tipsTxt:"",
-      tipsTag:false,
-      showLoading:false
-    }
-  },
-  components:{
-    tips
-  },
-  methods:{
-    showData:function(){
-      console.log(this.bus);
-      this.$router.push({ path: './other' });
-      this.$nextTick( () => {
-        this.bus.$emit("test","反反复复反反复复反反复复");
-      });
-    },
-    jumpIndex:function(){
-      if(this.userName == ""){
-         this.tipsTxt= '请输入用户名';
-         this.tipsTag = true;
-         var that = this;
-         setTimeout(function(){
-           that.tipsTag = false;
-         },2000);
-         return;
-      }else if(this.passWord == ""){
-        this.tipsTxt= '请输入密码';
-        this.tipsTag = true;
-        var that = this;
-         setTimeout(function(){
-           that.tipsTag = false;
-         },2000);
-        return;
-      }
-      this.params.userName = this.userName;
-      this.params.passWord = this.passWord;
-      console.log(this.params);
-      this.$router.push('/mean');
-      sessionStorage.setItem("accessToken","1");
-    }
-  }
+	name: "login",
+	data:function(){ 
+		return {
+			userName:"",
+			passWord:"",
+			params:{},
+			titles:"",
+			tipFlag:false
+		}
+	},
+	components:{
+		tips //引入提示模块
+	},
+	methods:{
+		tFlag:function(v){
+			this.tipFlag = v;
+		},
+		jumpIndex:function(){
+			//校验用户名、密码
+			if(this.userName == ""){
+				this.titles = "请输入用户名"
+				this.tipFlag = true;
+				setTimeout(() => {
+					this.tipFlag = false;
+				}, 2000);
+				return;
+			}else if(this.passWord == ""){
+				this.titles = "请输入密码"
+				this.tipFlag = true;
+				setTimeout(() => {
+					this.tipFlag = false;
+				}, 2000);
+				return;
+			}
+			this.params.userName = this.userName;
+			this.params.passWord = this.passWord;
+			// console.log(this.params);
+			this.$ajax.get('http://localhost:8080/data/login.json',this.params)
+			.then((data) => {
+				// console.log(data);
+				if(this.userName == data.data.bean.userName && this.passWord == data.data.bean.password){
+					this.$router.push('/mean/home');
+					sessionStorage.setItem("accessToken","1");
+				}else{
+					this.titles = "用户名或密码错误"
+					this.tipFlag = true;
+					setTimeout(() => {
+						this.tipFlag = false;
+					}, 2000);
+				}
+			}).catch((error) => {
+				console.log(error);
+			})
+			
+		}
+	}
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .login{
-    position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    height:100%;
-    background: url(../assets/img/bg.jpg) no-repeat;
-    background-size: 100% 100%;
-  }
-  .login h1{
-    text-align: center;
-    font-size:30px;
-    color:#333;
-    font-weight:normal;
-    margin-bottom:20px;
-  }
-  .login-mean{
-    width: 450px;
-    height:300px;
-    background: rgba(255, 255, 255, .8);
-    position: absolute;
-    top:50%;
-    left:0;
-    z-index: 999;
-    right:0;
-    margin:-175px auto 0 auto;
-    border-radius: 4px;
-    padding:20px;
-  }
-  .login-mean ul li{
-    height:45px;
-    margin-bottom:15px;
-  }
-  .login-mean ul li input{
-    height:45px;
-    line-height:45px;
-    border:0;
-    width:calc(100% - 20px);
-    border-radius: 4px;
-    padding:0 10px;
-    font-size:14px;
-  }
-  .login-mean ul li button{
-    height:45px;
-    line-height:45px;
-    background: #f60;
-    border:0;
-    width:100%;
-    font-size:16px;
-    border-radius: 4px;
-    color:#fff;
-  }
+	.header {
+        text-align: center;
+    }
+    .header h1 {
+        font-size: 200%;
+        color: #333;
+        margin-top: 30px;
+    }
+    .header p {
+        font-size: 14px;
+    }
 </style>
